@@ -1,0 +1,93 @@
+### Kubernetes Basics:
+- **Pod**: Basic unit of deployment, represents one or more containers deployed together.
+- **Namespace**: Virtual cluster within a physical cluster, used to partition resources.
+- **Deployment**: Manages Pods using ReplicaSets, ensures desired number of Pods are running.
+- **Service**: Abstracts Pod functionality, provides a stable IP address and DNS name.
+- **ReplicaSet**: Ensures a specified number of Pod replicas are running at any given time.
+- **StatefulSet**: Manages stateful applications, such as databases, with stable, unique network identifiers.
+- **DaemonSet**: Ensures a copy of a Pod is running on each node in the cluster.
+- **Job**: Runs a task to completion, useful for batch processing and one-off jobs.
+- **CronJob**: Runs Jobs on a time-based schedule.
+
+### Kubernetes CLI (`kubectl`) Commands:
+- **`kubectl get <resource>`**: List resources.
+- **`kubectl describe <resource> <name>`**: Describe a specific resource.
+- **`kubectl create -f <file>`**: Create a resource from a file.
+- **`kubectl apply -f <file>`**: Create or update a resource based on the file.
+- **`kubectl delete <resource> <name>`**: Delete a resource.
+- **`kubectl logs <pod_name>`**: Print the logs of a Pod.
+- **`kubectl exec -it <pod_name> -- <command>`**: Execute a command in a Pod.
+- **`kubectl port-forward <pod_name> <local_port>:<remote_port>`**: Forward ports to a Pod.
+- **`kubectl scale <resource> <name> --replicas=<count>`**: Scale a resource.
+
+### YAML Configuration:
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mycontainer
+    image: nginx:latest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydeployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: mycontainer
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+```
+
+### Kubernetes Networking:
+- **ClusterIP**: Exposes a Service on a cluster-internal IP, only reachable from within the cluster.
+- **NodePort**: Exposes a Service on each node's IP at a static port, accessible from outside the cluster.
+- **LoadBalancer**: Exposes a Service externally using a cloud provider's load balancer.
+- **Ingress**: Exposes HTTP and HTTPS routes from outside the cluster to Services within the cluster.
+
+### Kubernetes Security:
+- **Role-Based Access Control (RBAC)**: Defines access policies using roles and role bindings.
+- **Network Policies**: Define how groups of Pods are allowed to communicate with each other and other network endpoints.
+- **Secrets**: Store sensitive data, such as passwords and OAuth tokens, securely in the cluster.
+
+### Monitoring and Logging:
+- **Prometheus**: Open-source monitoring system with a dimensional data model, query language, and alerting.
+- **Grafana**: Open-source analytics and monitoring solution for visualizing metrics.
+- **ELK Stack (Elasticsearch, Logstash, Kibana)**: Used for log aggregation, searching, and visualization.
+
+### Helm:
+- **Helm**: Package manager for Kubernetes, simplifies deploying and managing applications.
+- **Charts**: Packages of pre-configured Kubernetes resources, easily shareable and reusable.
+
+### Cluster Management:
+- **Kubernetes Dashboard**: Web-based UI for managing and monitoring Kubernetes clusters.
+- **kubeadm**: Tool for bootstrapping Kubernetes clusters.
+- **Kops**: Tool for managing production-grade Kubernetes clusters.
+
+### Troubleshooting:
+- **`kubectl get events`**: Display cluster events.
+- **`kubectl describe <resource> <name>`**: Get detailed information about a resource.
+- **`kubectl logs <pod_name>`**: Retrieve logs from a Pod.
+- **`kubectl exec -it <pod_name> -- <command>`**: Execute a command in a running Pod.
+
+### Best Practices:
+- Use labels and selectors effectively for grouping and querying resources.
+- Ensure proper resource limits and requests for Pods.
+- Regularly monitor cluster health, resource usage, and application performance.
+- Implement automated testing and CI/CD pipelines for reliable application delivery.
+- Apply security best practices such as RBAC, network policies, and secrets management.
+
+This comprehensive cheat sheet should cover a wide range of Kubernetes topics and commands, providing a handy reference for both beginners and experienced users.
